@@ -14,7 +14,6 @@ import (
 )
 
 func Initialize() {
-
 	switch logLevel := os.Getenv("CBS_LOGLEVEL"); logLevel {
 	case "trace":
 		SetConsoleLogger(log.TraceLevel)
@@ -79,7 +78,7 @@ func preFormatArgs(v []interface{}) []interface{} {
 			k == reflect.Slice ||
 			k == reflect.Array ||
 			k == reflect.Map {
-			vv = append(vv, pretty.Formatter(o))
+			vv = append(vv, format.Formatter(o))
 		} else {
 			vv = append(vv, o)
 		}
