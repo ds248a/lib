@@ -2,6 +2,7 @@ package format
 
 import (
 	"reflect"
+
 	"sort"
 )
 

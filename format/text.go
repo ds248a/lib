@@ -4,7 +4,7 @@ import (
 	"io"
 )
 
-// Indent вставляет prefix в начале каждой непустой строки s.
+//  Indent вставляет prefix в начале каждой непустой строки s.
 func Indent(s, prefix string) string {
 	return string(IndentBytes([]byte(s), []byte(prefix)))
 }

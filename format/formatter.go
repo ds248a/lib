@@ -6,9 +6,6 @@ import (
 	"reflect"
 	"strconv"
 	"text/tabwriter"
-
-	// "github.com/kr/text"
-	"github.com/rogpeppe/go-internal/fmtsort"
 )
 
 type formatter struct {
@@ -62,13 +59,13 @@ type printer struct {
 	io.Writer
 	tw      *tabwriter.Writer
 	visited map[visit]int
-	depth   int
+	depth   int // служит для предотвращения рекурсивного вызова printValue()
 }
 
 func (p *printer) indent() *printer {
 	q := *p
 	q.tw = tabwriter.NewWriter(p.Writer, 4, 4, 1, ' ', 0)
-	q.Writer = text.NewIndentWriter(q.tw, []byte{'\t'})
+	q.Writer = NewIndentWriter(q.tw, []byte{'\t'})
 	return &q
 }
 
@@ -81,14 +78,13 @@ func (p *printer) printInline(v reflect.Value, x interface{}, showType bool) {
 	}
 }
 
-// printValue must keep track of already-printed pointer values to avoid
-// infinite recursion.
 type visit struct {
 	v   uintptr
 	typ reflect.Type
 }
 
 func (p *printer) printValue(v reflect.Value, showType, quote bool) {
+	// предотвращает рекурсивный вызов
 	if p.depth > 10 {
 		io.WriteString(p, "!%v(DEPTH EXCEEDED)")
 		return
@@ -128,7 +124,7 @@ func (p *printer) printValue(v reflect.Value, showType, quote bool) {
 				writeByte(p, '\n')
 				pp = p.indent()
 			}
-			sm := fmtsort.Sort(v)
+			sm := Sort(v)
 			for i := 0; i < v.Len(); i++ {
 				k := sm.Key[i]
 				mv := sm.Value[i]
@@ -157,7 +153,7 @@ func (p *printer) printValue(v reflect.Value, showType, quote bool) {
 			vis := visit{addr, t}
 			if vd, ok := p.visited[vis]; ok && vd < p.depth {
 				p.fmtString(t.String()+"{(CYCLIC REFERENCE)}", false)
-				break // don't print v again
+				break // <- не печатать снова
 			}
 			p.visited[vis] = p.depth
 		}
