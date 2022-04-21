@@ -5,7 +5,6 @@ import (
 	"strings"
 )
 
-
 // UnsetEnv удаляет из окружения заданый параметр.
 func UnsetEnv(key string) error {
 	envs := os.Environ()
