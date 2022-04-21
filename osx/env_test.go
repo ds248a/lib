@@ -60,8 +60,6 @@ func TestHandleInterrupts(t *testing.T) {
 		HandleInterrupts(zaptest.NewLogger(t))
 		syscall.Kill(syscall.Getpid(), sig)
 
-		// we should receive the signal once from our own kill and
-		// a second time from HandleInterrupts
 		waitSig(t, c, sig)
 		waitSig(t, c, sig)
 
@@ -71,7 +69,7 @@ func TestHandleInterrupts(t *testing.T) {
 		if n != 4 {
 			t.Fatalf("interrupt handlers were not called properly")
 		}
-		// reset interrupt handlers
+
 		interruptHandlers = interruptHandlers[:0]
 		interruptExitMu.Unlock()
 	}
