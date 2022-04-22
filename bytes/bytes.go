@@ -3,7 +3,7 @@ package bytes
 import (
 	crand "crypto/rand"
 
-	"github.com/ds248a/lib/pool"
+	"github.com/ds248a/lib/bpool"
 	"github.com/ds248a/lib/strconv"
 )
 
@@ -13,7 +13,7 @@ const (
 	charsetIdxMask = 1<<charsetIdxBits - 1
 )
 
-var randBytesPool = pool.Pool{}
+var randBytesPool = bpool.Pool{}
 
 // Rand заполняет dst случайным набором символов латинского алфавита.
 // Необходимое условие: len(dst) > 0

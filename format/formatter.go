@@ -11,14 +11,11 @@ import (
 type formatter struct {
 	v     reflect.Value
 	force bool
-	quote bool
+	quote bool // strconv.Quote()
 }
 
-// Impliment fmt.Formatter interface.
-// Object f responds to the "%v" formatting verb when both the "#" and " " (space) flags are set, for example:
-//
-//   fmt.Sprintf("%# v", Formatter(x))
-//
+// Реализация fmt.Formatter interface.
+// fmt.Sprintf("%# v", Formatter(x))
 func Formatter(x interface{}) (f fmt.Formatter) {
 	return formatter{v: reflect.ValueOf(x), quote: true}
 }

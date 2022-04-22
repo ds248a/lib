@@ -1,11 +1,9 @@
-package pool
+package bpool
 
 import (
 	"sort"
 	"sync"
 	"sync/atomic"
-
-	"github.com/ds248a/lib/bytes"
 )
 
 const (
@@ -21,9 +19,9 @@ const (
 
 var defaultPool Pool
 
-func Get() *bytes.ByteBuffer { return defaultPool.Get() }
+func Get() *ByteBuffer { return defaultPool.Get() }
 
-func Put(b *bytes.ByteBuffer) { defaultPool.Put(b) }
+func Put(b *ByteBuffer) { defaultPool.Put(b) }
 
 // Pool represents byte buffer pool.
 // Distinct pools may be used for distinct types of byte buffers.
@@ -40,19 +38,19 @@ type Pool struct {
 
 // Get returns new byte buffer with zero length.
 // The byte buffer may be returned to the pool via Put after the use in order to minimize GC overhead.
-func (p *Pool) Get() *bytes.ByteBuffer {
+func (p *Pool) Get() *ByteBuffer {
 	v := p.pool.Get()
 	if v != nil {
-		return v.(*bytes.ByteBuffer)
+		return v.(*ByteBuffer)
 	}
-	return &bytes.ByteBuffer{
+	return &ByteBuffer{
 		B: make([]byte, 0, atomic.LoadUint64(&p.defaultSize)),
 	}
 }
 
 // Put releases byte buffer obtained via Get to the pool.
 // The buffer mustn't be accessed after returning to the pool.
-func (p *Pool) Put(b *bytes.ByteBuffer) {
+func (p *Pool) Put(b *ByteBuffer) {
 	idx := index(len(b.B))
 
 	if atomic.AddUint64(&p.calls[idx], 1) > calibrateCallsThreshold {

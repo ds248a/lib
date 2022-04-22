@@ -1,11 +1,6 @@
 # lib
 
-## Byte buffer
-
-ByteBuffer may be used with functions appending data to the given []byte slice.
-
-## Pool
-
+### Pool
 Pool represents byte buffer pool.
 Distinct pools may be used for distinct types of byte buffers.
 Properly determined byte buffer types with their own pools may help reducing memory waste.
@@ -24,9 +19,8 @@ func main() {
 	b.WriteString("line 1\n")
 	b.Write([]byte("line 2\n"))
 	b.B = append(b.B, "line 3\n"...)
-
-	fmt.Printf("bb.B=%q", b.B)
-
+	
+	fmt.Printf("b.B=%q", b.B)
 	pool.Put(b)
 }
 ```
