@@ -15,24 +15,18 @@ package main
 
 import (
 	"fmt"
-	"github.com/ds247a/pool"
+	"github.com/ds248a/lib/pool"
 )
 
-func ExampleByteBuffer() {
-	bb := pool.Get()
+func main() {
+	b := pool.Get()
 
-	bb.WriteString("first line\n")
-	bb.Write([]byte("second line\n"))
-	bb.B = append(bb.B, "third line\n"...)
+	b.WriteString("line 1\n")
+	b.Write([]byte("line 2\n"))
+	b.B = append(b.B, "line 3\n"...)
 
-	fmt.Printf("bytebuffer contents=%q", bb.B)
+	fmt.Printf("bb.B=%q", b.B)
 
-	// It is safe to release byte buffer now, since it is no longer used.
-	pool.Put(bb)
+	pool.Put(b)
 }
 ```
-
-
-
-
-
