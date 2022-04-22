@@ -1,5 +1,30 @@
 # lib
 
+### Strconv
+```go
+func B2S(b []byte) string
+func S2B(s string) (b []byte)
+```
+
+Benchmark
+```go
+Benchmark_B2S-4   	1000000000	         0.5577 ns/op	       0 B/op	       0 allocs/op
+Benchmark_S2B-4   	1000000000	         0.5477 ns/op	       0 B/op	       0 allocs/o
+```
+
+
+### Bytes
+Generating a random set of characters of the Latin alphabet
+```go
+func Rand(dst []byte) []byte
+```
+
+Benchmark
+```go
+Benchmark_Rand-4   	 10000000	      790 ns/op	       0 B/op	       0 allocs/op
+```
+
+
 ### BPool
 Represents byte buffer pool.
 Distinct pools may be used for distinct types of byte buffers.
