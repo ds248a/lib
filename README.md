@@ -15,7 +15,7 @@ Benchmark_S2B-4   	1000000000	         0.5477 ns/op	       0 B/op	       0 alloc
 
 
 ### Bytes
-Generating a random set of characters of the Latin alphabet
+Generating a random set of characters of the latin alphabet
 ```go
 func Rand(dst []byte) []byte
 ```
