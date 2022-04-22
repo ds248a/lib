@@ -8,16 +8,16 @@ import (
 )
 
 const (
-	charset        = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	charset        = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" // 62
 	charsetIdxBits = 6
-	charsetIdxMask = 1<<charsetIdxBits - 1
+	charsetIdxMask = 1<<charsetIdxBits - 1 // 63
 )
 
 var randBytesPool = bpool.Pool{}
 
 // Rand заполняет dst случайным набором символов латинского алфавита.
 // Необходимое условие: len(dst) > 0
-func Rand(dst []byte) []byte {
+func Rand(dst []byte) {
 	buf := randBytesPool.Get()
 	buf.B = Extend(buf.B, len(dst))
 
@@ -34,7 +34,6 @@ func Rand(dst []byte) []byte {
 	}
 
 	randBytesPool.Put(buf)
-	return dst
 }
 
 // Copy возврашает копию среза b.
