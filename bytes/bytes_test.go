@@ -49,10 +49,8 @@ func Test_RandConcurrent(t *testing.T) {
 
 	for i := 0; i < n; i++ {
 		wg.Add(1)
-
 		go func() {
 			defer wg.Done()
-
 			testRand(t)
 		}()
 	}

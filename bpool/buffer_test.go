@@ -158,7 +158,7 @@ var str = []string{
 	"vel illum qui dolorem eum fugiat quo voluptas nulla pariatur",
 }
 
-func BenchmarkByteBufferPool(b *testing.B) {
+func BenchmarkBBpoolBuf(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			BBpoolBuf()
@@ -170,7 +170,7 @@ func BBpoolBuf() {
 	buf := Get()
 	WorkWithByteBuf(buf)
 	Put(buf)
-	Done()
+	// Done()
 }
 
 func WorkWithByteBuf(b *ByteBuffer) {
