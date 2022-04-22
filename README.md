@@ -1,6 +1,7 @@
 # lib
 
 ### Strconv
+String conversions
 ```go
 func B2S(b []byte) string
 func S2B(s string) (b []byte)
