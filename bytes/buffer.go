@@ -90,8 +90,12 @@ func (b *ByteBuffer) SetString(s string) {
 	b.B = append(b.B[:0], s...)
 }
 
-// String returns string representation of ByteBuffer.B.
+// String returns string representation of ByteBuffer.
 func (b *ByteBuffer) String() string {
+	if b == nil { // Special case, useful in debugging.
+		return "<nil>"
+	}
+
 	return string(b.B)
 }
 

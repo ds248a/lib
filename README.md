@@ -1,12 +1,14 @@
 # lib
 
-## Bytes Buffer
+## Byte buffer
+
+ByteBuffer may be used with functions appending data to the given []byte slice.
+
+## Pool
 
 Pool represents byte buffer pool.
 Distinct pools may be used for distinct types of byte buffers.
 Properly determined byte buffer types with their own pools may help reducing memory waste.
-
-ByteBuffer may be used with functions appending data to the given []byte slice.
 
 ```go
 package main
@@ -29,3 +31,8 @@ func ExampleByteBuffer() {
 	pool.Put(bb)
 }
 ```
+
+
+
+
+
