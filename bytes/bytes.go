@@ -52,7 +52,6 @@ func Extend(b []byte, needLen int) []byte {
 	if n := needLen - cap(b); n > 0 {
 		b = append(b, make([]byte, n)...)
 	}
-
 	return b[:needLen]
 }
 

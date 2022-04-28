@@ -10,7 +10,6 @@ import (
 
 func testRand(t *testing.T) {
 	t.Helper()
-
 	values := make([]string, 0)
 
 	for i := 0; i < 10000; i++ {
@@ -21,7 +20,6 @@ func testRand(t *testing.T) {
 
 		if strings.Include(values, string(dst)) {
 			t.Error("Rand() returns the same value")
-
 			return
 		}
 
