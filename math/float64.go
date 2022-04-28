@@ -5,7 +5,7 @@ import (
 	"math"
 	"strconv"
 
-	"github.com/ds248a/lib/pool"
+	"github.com/ds248a/lib/bpool"
 )
 
 type Float64 struct{}
@@ -17,8 +17,8 @@ func NewFloat64() *Float64 {
 
 // DecimalPlaces возвращает количество десятичных знаков.
 func (fc *Float64) DecimalPlaces(x float64) int {
-	buf := pool.Get()
-	defer pool.Put(buf)
+	buf := bpool.Get()
+	defer bpool.Put(buf)
 
 	buf.B = strconv.AppendFloat(buf.B, x, 'f', -1, 64)
 	i := bytes.IndexByte(buf.B, '.')

@@ -1,40 +1,8 @@
 package bytes
 
 import (
-	crand "crypto/rand"
-
-	"github.com/ds248a/lib/bpool"
 	"github.com/ds248a/lib/strconv"
 )
-
-const (
-	charset        = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" // 62
-	charsetIdxBits = 6
-	charsetIdxMask = 1<<charsetIdxBits - 1 // 63
-)
-
-var randBytesPool = bpool.Pool{}
-
-// Rand заполняет dst случайным набором символов латинского алфавита.
-// Необходимое условие: len(dst) > 0
-func Rand(dst []byte) {
-	buf := randBytesPool.Get()
-	buf.B = Extend(buf.B, len(dst))
-
-	if _, err := crand.Read(buf.B); err != nil {
-		panic(err)
-	}
-
-	size := len(dst)
-	for i, j := 0, 0; i < size; j++ {
-		if idx := int(buf.B[j%size] & charsetIdxMask); idx < len(charset) {
-			dst[i] = charset[idx]
-			i++
-		}
-	}
-
-	randBytesPool.Put(buf)
-}
 
 // Copy возврашает копию среза b.
 func Copy(b []byte) []byte {
