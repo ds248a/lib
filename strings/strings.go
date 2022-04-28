@@ -4,12 +4,10 @@ import (
 	"github.com/ds248a/lib/strconv"
 )
 
-//
 func Copy(s string) string {
 	return string(strconv.S2B(s))
 }
 
-//
 func CopySlice(slice []string) []string {
 	dst := make([]string, len(slice))
 	copy(dst, slice)
@@ -17,7 +15,6 @@ func CopySlice(slice []string) []string {
 	return dst
 }
 
-//
 func IndexOf(slice []string, s string) int {
 	for i, v := range slice {
 		if v == s {
@@ -28,12 +25,10 @@ func IndexOf(slice []string, s string) int {
 	return -1
 }
 
-//
 func Include(slice []string, s string) bool {
 	return IndexOf(slice, s) != -1
 }
 
-//
 func UniqueAppend(slice []string, s ...string) []string {
 	for i := range s {
 		if IndexOf(slice, s[i]) != -1 {
@@ -46,7 +41,6 @@ func UniqueAppend(slice []string, s ...string) []string {
 	return slice
 }
 
-//
 func EqualSlices(slice1, slice2 []string) bool {
 	if len(slice1) != len(slice2) {
 		return false
@@ -61,7 +55,6 @@ func EqualSlices(slice1, slice2 []string) bool {
 	return true
 }
 
-//
 func ReverseSlice(slice []string) []string {
 	for i, j := 0, len(slice)-1; i < j; i, j = i+1, j-1 {
 		slice[i], slice[j] = slice[j], slice[i]
