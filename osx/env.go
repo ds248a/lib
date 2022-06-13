@@ -41,8 +41,6 @@ func GetEnv(key string, dfault string, combineWith ...string) string {
 		copy(all[1:], combineWith)
 		return filepath.Join(all...)
 	}
-
-	panic("invalid switch case")
 }
 
 func HostProc(combineWith ...string) string {
